@@ -1,4 +1,4 @@
-# sp-repo
+# Deploy the ML Model with Docker: (UPDATED)
 
 ### first create one ec2 instance with ubuntu 22.04/t2.medium/20gb
 
