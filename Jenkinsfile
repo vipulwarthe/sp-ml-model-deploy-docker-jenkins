@@ -5,8 +5,8 @@ pipeline {
         REPO_URL = 'https://github.com/vipulwarthe/sp-repo.git'
         IMAGE_NAME = 'vipulwarthe/ml-model-app'
         SONAR_PROJECT_KEY = 'student-performance-app'
-        SONAR_HOST_URL =  'http://54.160.134.66:9000'
-        SONAR_AUTH_TOKEN = 'squ_ca6d93ad6f55cf35d037312591ed87a9093d1a12'    
+        SONAR_HOST_URL = 'http://54.160.134.66:9000'
+        SONAR_AUTH_TOKEN = 'squ_ca6d93ad6f55cf35d037312591ed87a9093d1a12'
     }
 
     stages {
@@ -24,12 +24,17 @@ pipeline {
             }
         }
 
-        
         stage('SonarQube Analysis') {
             steps {
                 echo 'Running SonarQube analysis...'
                 withSonarQubeEnv('SonarQube') {
-                    sh 'sonar-scanner -Dsonar.projectKey=student-performance-app -Dsonar.sources=. -Dsonar.python.version=3.9 -Dsonar.host.url=http://<SonarQube_IP>:9000 -Dsonar.login=<TOKEN>'
+                    sh """
+                    sonar-scanner \
+                    -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+                    -Dsonar.sources=. \
+                    -Dsonar.host.url=${SONAR_HOST_URL} \
+                    -Dsonar.login=${SONAR_AUTH_TOKEN}
+                    """
                 }
             }
         }
@@ -61,7 +66,9 @@ pipeline {
         stage('Trivy Security Scan') {
             steps {
                 echo 'Running Trivy security scan...'
-                sh 'trivy image --exit-code 1 --severity HIGH ${IMAGE_NAME}:latest || true'
+                sh '''
+                trivy image --exit-code 1 --severity HIGH ${IMAGE_NAME}:latest || true
+                '''
             }
         }
 
@@ -81,8 +88,8 @@ pipeline {
             steps {
                 echo 'Deploying application...'
                 sh '''
-                docker stop ml-model-app || true
-                docker rm ml-model-app || true
+                docker stop student-performance-app || true
+                docker rm student-performance-app || true
                 docker run -d -p 5000:5000 --name student-performance-app ${IMAGE_NAME}:latest
                 '''
             }
@@ -102,5 +109,4 @@ pipeline {
         }
     }
 }
-
 
