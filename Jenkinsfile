@@ -24,18 +24,12 @@ pipeline {
             }
         }
 
+        
         stage('SonarQube Analysis') {
             steps {
                 echo 'Running SonarQube analysis...'
                 withSonarQubeEnv('SonarQube') {
-                    sh """
-                    sonar-scanner \
-                        -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
-                        -Dsonar.sources=. \
-                        -Dsonar.python.version=3.9 \
-                        -Dsonar.host.url=${env.SONAR_HOST_URL} \
-                        -Dsonar.login=${env.SONAR_AUTH_TOKEN}
-                    """
+                    sh 'sonar-scanner -Dsonar.projectKey=student-performance-app -Dsonar.sources=. -Dsonar.python.version=3.9 -Dsonar.host.url=http://<SonarQube_IP>:9000 -Dsonar.login=<TOKEN>'
                 }
             }
         }
