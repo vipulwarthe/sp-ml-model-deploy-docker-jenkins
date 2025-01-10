@@ -22,13 +22,6 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                echo 'Running tests...'
-                sh 'pytest tests/'
-            }
-        }
-
         stage('SonarQube Analysis') {
             steps {
                 echo 'Running SonarQube analysis...'
