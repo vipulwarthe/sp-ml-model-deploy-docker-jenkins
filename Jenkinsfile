@@ -5,6 +5,8 @@ pipeline {
         REPO_URL = 'https://github.com/vipulwarthe/sp-repo.git'
         IMAGE_NAME = 'vipulwarthe/ml-model-app'
         SONAR_PROJECT_KEY = 'student-performance-app'
+        SONAR_HOST_URL =  'http://54.160.134.66:9000'
+        SONAR_AUTH_TOKEN = 'squ_ca6d93ad6f55cf35d037312591ed87a9093d1a12'    
     }
 
     stages {
