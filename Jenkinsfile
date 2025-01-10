@@ -4,16 +4,8 @@ pipeline {
     environment {
         REPO_URL = 'https://github.com/vipulwarthe/sp-repo.git'
         IMAGE_NAME = 'vipulwarthe/ml-model-app'
-        SONAR_PROJECT_KEY = 'ml-model-app'
+        SONAR_PROJECT_KEY = 'student-performance-app'
     }
-	
-	stages {
-        stage('Clean Workspace') {
-            steps {
-                cleanWs()
-                echo 'Workspace cleaned successfully.'
-            }
-        }
 
     stages {
         stage('Clone Repository') {
@@ -102,7 +94,7 @@ pipeline {
                 sh '''
                 docker stop ml-model-app || true
                 docker rm ml-model-app || true
-                docker run -d -p 5000:5000 --name sp-app ${IMAGE_NAME}:latest
+                docker run -d -p 5000:5000 --name student-performance-app ${IMAGE_NAME}:latest
                 '''
             }
         }
