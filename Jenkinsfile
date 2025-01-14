@@ -7,7 +7,7 @@ pipeline {
         SONAR_PROJECT_KEY = 'ml-model-app'
     }
 	
-	stages {
+    stages {
         stage('Clean Workspace') {
             steps {
                 cleanWs()
@@ -15,7 +15,6 @@ pipeline {
             }
         }
 
-    stages {
         stage('Clone Repository') {
             steps {
                 echo 'Cloning the repository...'
