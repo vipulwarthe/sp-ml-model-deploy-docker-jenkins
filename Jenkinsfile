@@ -4,7 +4,6 @@ pipeline {
     environment {
         REPO_URL = 'https://github.com/vipulwarthe/sp-repo.git'
         IMAGE_NAME = 'vipulwarthe/ml-model-app'
-        SONAR_PROJECT_KEY = 'ml-model-app'
     }
 	
     stages {
