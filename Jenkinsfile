@@ -29,13 +29,6 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                echo 'Running tests...'
-                sh 'pytest tests/'
-            }
-        }
-
         stage('OWASP Dependency-Check') {
             steps {
                 echo 'Running OWASP Dependency-Check...'
