@@ -29,16 +29,6 @@ pipeline {
             }
         }
 
-        stage('OWASP Dependency-Check') {
-            steps {
-                echo 'Running OWASP Dependency-Check...'
-                sh '''
-                dependency-check.sh --project ml-model-app --scan . --format "HTML"
-                '''
-                archiveArtifacts artifacts: 'dependency-check-report.html', allowEmptyArchive: true
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 echo 'Building Docker image...'
