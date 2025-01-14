@@ -5,7 +5,7 @@ pipeline {
         REPO_URL = 'https://github.com/vipulwarthe/sp-repo.git'
         IMAGE_NAME = 'vipulwarthe/ml-model-app'
     }
-	
+
     stages {
         stage('Clean Workspace') {
             steps {
@@ -24,7 +24,12 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 echo 'Installing dependencies...'
-                sh 'python3 -m pip install -r requirements.txt'
+                sh '''
+                if ! python3 -m pip --version > /dev/null 2>&1; then
+                    sudo apt update && sudo apt install -y python3-pip || echo "Ensure 'pip' is installed on this agent."
+                fi
+                python3 -m pip install -r requirements.txt
+                '''
             }
         }
 
@@ -79,6 +84,7 @@ pipeline {
         }
     }
 }
+
 
 
 
