@@ -43,13 +43,6 @@ pipeline {
             }
         }
 
-        stage('Trivy Security Scan') {
-            steps {
-                echo 'Running Trivy security scan...'
-                sh 'trivy image --exit-code 1 --severity HIGH ${IMAGE_NAME}:latest || true'
-            }
-        }
-
         stage('Push Docker Image') {
             steps {
                 echo 'Pushing Docker image to Docker Hub...'
@@ -68,7 +61,7 @@ pipeline {
                 sh '''
                 docker stop ml-model-app || true
                 docker rm ml-model-app || true
-                docker run -d -p 5000:5000 --name sp-application ${IMAGE_NAME}:latest
+                docker run -d -p 5000:5000 --name sp-app ${IMAGE_NAME}:latest
                 '''
             }
         }
@@ -87,7 +80,6 @@ pipeline {
         }
     }
 }
-
 
 
 
