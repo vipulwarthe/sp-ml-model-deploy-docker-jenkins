@@ -61,7 +61,7 @@ pipeline {
                 sh '''
                 docker stop ml-model-app || true
                 docker rm ml-model-app || true
-                docker run -d -p 5000:5000 --name sp-app ${IMAGE_NAME}:latest
+                docker run -d -p 5000:5000 --name sp-app-1 ${IMAGE_NAME}:latest
                 '''
             }
         }
