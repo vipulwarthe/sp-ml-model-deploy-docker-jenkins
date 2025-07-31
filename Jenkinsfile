@@ -21,17 +21,20 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
-            steps {
-                echo 'Installing dependencies...'
-                sh '''
-                if ! python3 -m pip --version > /dev/null 2>&1; then
-                    sudo apt update && sudo apt install -y python3-pip || echo "Ensure 'pip' is installed on this agent."
-                fi
-                python3 -m pip install -r requirements.txt
-                '''
-            }
-        }
+       stage('Install Dependencies') {
+           steps {
+               echo 'Installing dependencies...'
+               sh '''
+               if ! python3 -m pip --version > /dev/null 2>&1; then
+               echo "pip not found. Installing pip locally..."
+               wget https://bootstrap.pypa.io/get-pip.py -O get-pip.py
+               python3 get-pip.py --user
+               export PATH=$PATH:$HOME/.local/bin
+               fi
+               python3 -m pip install --user -r requirements.txt
+               '''
+           }
+       }
 
         stage('Build Docker Image') {
             steps {
