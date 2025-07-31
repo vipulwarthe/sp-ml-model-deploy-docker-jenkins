@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        REPO_URL = 'https://github.com/vipulwarthe/sp-repo.git'
-        IMAGE_NAME = 'vipulwarthe/ml-model-app'
+        REPO_URL = 'https://github.com/vipulwarthe/sp-ml-model-deploy-docker-jenkins.git'
+        IMAGE_NAME = 'vipulwarthe/sp-model-app'
     }
 
     stages {
