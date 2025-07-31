@@ -33,3 +33,33 @@
 
 ### access the application with public ip:5000/predictdata
 
+# Automate the Deployment with Jenkins Pipeline:
+
+Install Java and Jenkins on server
+
+Install Trivy To scan Docker image:
+
+Method 1: Install via Shell Script (Official - Recommended)
+
+    curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin
+    trivy --version
+Install Docker and give the permission to the docker user and restart the jenkins server
+
+    sudo usermod -aG docker jenkins
+
+    sudo systemctl restart jenkins
+
+    groups jenkins
+
+Add webhook for auto run the pipeline when code changes
+
+    http://<jenkins-ip>:8080/github-webhook/
+
+Add Docker credentials in jenkins 
+
+Run Pipeline 
+
+    
+
+
+
